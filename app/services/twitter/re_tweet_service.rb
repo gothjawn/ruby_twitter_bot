@@ -25,5 +25,26 @@ module Twitter
         end
 
         private
+
+        def twitter_api_config
+        {
+            consumer_key: ENV['CONSUMER_KEY'],
+            consumer_secret: ENV['CONSUMER_SECRET'],
+            access_token: ENV['ACCESS_TOKEN'],
+            access_token_secret: ENV['ACCESS_TOKEN_SECRET']
+        }
+        end
+
+        def configure_rest_client
+            puts 'Configuring Rest Client'
+
+            Twitter::REST::Client.new(config)
+        end
+
+        def configure_stream_client
+            puts 'Configuring Stream Client'
+
+            Twitter::Streaming::Client.new(config)
+        end
     end
 end
