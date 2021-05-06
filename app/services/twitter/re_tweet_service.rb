@@ -48,3 +48,6 @@ module Twitter
         end
     end
 end
+
+private
+HASHTAGS_TO_WATCH = %W[#rails #ruby #RubyOnRails]
