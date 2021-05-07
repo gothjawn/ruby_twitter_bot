@@ -51,6 +51,16 @@ module Twitter
 
             Twitter::Streaming::Client.new(config)
         end
+
+        def hashtags(tweet)
+            tweet_hash = tweet.to_h 
+            extended_tweet = tweet_hash[:extended_tweet]
+            (extended_tweet && extended_tweet[:entities][:hastags])
+        end
+
+        def tweet?(tweet)
+            tweet.is_a(Twitter::Tweet)
+        end
     end
 end
 
