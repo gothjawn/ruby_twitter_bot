@@ -29,6 +29,7 @@ module Twitter
         end
 
         private
+        MAXIMUM_HASHTAG_COUNT = 10
         HASHTAGS_TO_WATCH = %W[#rails #ruby #RubyOnRails]
 
         def twitter_api_config
@@ -60,6 +61,24 @@ module Twitter
 
         def tweet?(tweet)
             tweet.is_a(Twitter::Tweet)
+        end
+
+        def retweet?(tweet)
+            tweet.retweet?
+        end
+
+        def allowed_hastags?(tweet)
+            includes_allowed_hashtags = false
+
+            hashtags(tweet).each do |hashtag|
+                if HASHTAGS_TO_WATCH.map(&:upcase).include?("##{hashtag[:text]&.upcase}")
+                    includes_allowed_hashtags = true
+
+                    break
+                end
+            end
+
+            includes_allowed_hashtags
         end
     end
 end
