@@ -80,6 +80,17 @@ module Twitter
 
             includes_allowed_hashtags
         end
+        def allowed_hashtag_count?(tweet)
+            hashtags(tweet)&.count <= MAXIMUM_HASHTAG_COUNT
+        end
+
+        def sensitive_tweet?(tweet)
+            tweet.possibly_sensitive?
+        end
+
+        def should_retweet?(tweet)
+            tweet?(tweet) && !retweet?(tweet) && allowed_hashtag_count?(tweet) && !sensitive_tweet?(tweet) && allowed_hashtags?(tweet)
+        end
     end
 end
 
